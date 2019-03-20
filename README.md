@@ -8,7 +8,7 @@ The collaborative practice IA project.
 - Users able to login, and backend differentiates students from teachers
 - A student can be in 4 states: in dorm, awaiting approval, approved and going to library, checked in to the library, checked out and going back to dorm.
 
-### Student End
+### Student Side
 
 - Button to send request to go to the library
 - ‘Awaiting approval’ page
@@ -17,12 +17,12 @@ The collaborative practice IA project.
 
 - List of students in the library, going to library, and coming back to the dorm
 
-### House Teacher End
+### House Teacher Side
 
 - List of students awaiting for approval with ‘Approve’ and ‘Disapprove’ buttons
 - List of students coming back from the library with ‘Check in’ buttons (and time)
 
-### Library Teacher End
+### Library Teacher Side
 
 - List of students approved and coming to the library with ‘Check in’ buttons (and time)
 - List of students checked in and current in the library with ‘Check out’ buttons (and time)
