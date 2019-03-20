@@ -31,8 +31,8 @@ The collaborative practice IA project.
 
 ## Collaboration
 
-**David Xu**: Front-end webpage interface and interactions
-**Uriah Wu**: Front-end user interaction logic
-**Eric Zhang**: Front-end webpage interface
-**Ben Zhang**: Back-end database
-**George Yu**: Back-end API
+- **David Xu**: Front-end webpage interface and interactions
+- **Uriah Wu**: Front-end user interaction logic
+- **Eric Zhang**: Front-end webpage interface
+- **Ben Zhang**: Back-end database
+- **George Yu**: Back-end API
