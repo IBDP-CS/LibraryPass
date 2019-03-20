@@ -13,7 +13,7 @@ The collaborative practice IA project.
 - Button to send request to go to the library
 - ‘Awaiting approval’ page
 
-## All Teachers
+### All Teachers
 
 - List of students in the library, going to library, and coming back to the dorm
 
