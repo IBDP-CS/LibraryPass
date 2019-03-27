@@ -1,4 +1,4 @@
-from shooter import app
+from libpass import app
 
 if __name__ == '__main__':
     app.run()
