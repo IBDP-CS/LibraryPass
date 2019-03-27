@@ -6,7 +6,12 @@ The collaborative practice IA project.
 ## Planning
 
 - Users able to login, and backend differentiates students from teachers
-- A student can be in 4 states: in dorm, awaiting approval, approved and going to library, checked in to the library, checked out and going back to dorm.
+- A student can be in 5 states:
+  - [0] In dorm
+  - [1] Awaiting approval
+  - [2] Approved and going to library
+  - [3] Checked in to the library
+  - [4] Checked out and going back to dorm.
 
 ### Student Side
 
