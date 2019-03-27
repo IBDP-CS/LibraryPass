@@ -1,6 +1,6 @@
-# Practice-IA
+# LibraryPass
 
-The collaborative practice IA project.
+The collaborative practice IA project for an online library pass platform.
 
 
 ## Planning
