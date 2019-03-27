@@ -1,6 +1,7 @@
 import re
 import sys
 import time
+import traceback
 from functools import wraps
 
 from flask import Response, request, send_from_directory, render_template, jsonify, redirect, url_for, make_response
@@ -35,7 +36,8 @@ def return_error_json(func):
             return func(*args, **kwargs)
         except Exception as e:
             _, __, exc_tb = sys.exc_info()
-            return jsonify({'code': -1, 'error': '{}: {}'.format(e.__class__.__name__, e), 'line': exc_tb.tb_lineno})
+            # Returning the line number of the immediate cause, not the root cause
+            return jsonify({'code': -1, 'error': '{}: {}'.format(e.__class__.__name__, e), 'line': traceback.extract_tb(exc_tb)[1].lineno})
     return wrapper
 
 
