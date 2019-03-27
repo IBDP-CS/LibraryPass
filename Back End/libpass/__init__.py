@@ -13,7 +13,7 @@ app.config.from_object(app_config['development'])
 app.config.from_pyfile('secrets.py')
 
 db = SQLAlchemy()
-db.app = app
+# db.app = app # Necessary for create_all()
 db.init_app(app)
 # db.create_all() # Create tables using the configuration
 

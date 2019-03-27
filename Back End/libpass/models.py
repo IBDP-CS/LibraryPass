@@ -29,5 +29,5 @@ class State(db.Model):
     __tablename__ = 'states'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    school_id = db.Column(db.String(60), db.ForeignKey('users.school_id'), nullable=False)
     state = db.Column(db.Integer, nullable=False, default=0)

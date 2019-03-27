@@ -1,3 +1,4 @@
+import re
 import sys
 import time
 from functools import wraps
@@ -93,17 +94,43 @@ def login():
     username = request.form.get('username', '')
     password = request.form.get('password', '')
 
-    # Attempt login
-    ret, name = ykps_auth(username, password)
+    name = ''
+    if not all((username, password)): # Data validation
+        ret = 1
+    else:
+        # Try fetching user from database
+        user = User.query.filter_by(school_id=username).first()
+
+        # If user is already in the database, validate credentials directly
+        if user:
+            ret = 0 if user.authenticate(password) else 1
+
+        # New user trying to log in
+        else:
+            # Authenticate via PowerSchool
+            ret, name = ykps_auth(username, password)
+
+            if ret == 0:
+                # User credentials validated, insert into database
+                hashed_password = generate_password_hash(password)
+                is_student = bool(re.match(r's\d{5}', username))
+                user = User(school_id=username, name=name, password=hashed_password, is_student=is_student)
+                state = State(school_id=username)
+                db.session.add(user)
+                db.session.add(state)
+                db.session.commit()
+
+    if ret == 0:
+        # User credentials validated, logs in the user
+        login_user(user)
 
     # Construct response
-    data = name if ret == 0 else ''
     msg = {
         0: 'Success',
         1: 'Invalid credentials'
     }.get(ret, '')
 
-    return jsonify({'code': ret, 'msg': msg, 'data': data})
+    return jsonify({'code': ret, 'msg': msg, 'data': name})
 
 
 @app.route('/update-state', methods=['POST'])
@@ -123,11 +150,29 @@ def update_state():
     student_id = request.form.get('id', '')
     new_state = request.form.get('state', '')
 
-    # Perform some MySQL stuff here
+    if not (all((student_id, new_state)) and new_state.isdigit() and int(new_state) in range(5)): # Data validation
+        code = 1
+    else:
+        # Further data validations
+        student = User.query.filter_by(school_id=student_id).first()
+        if not (student and student.is_student):
+            code = 1
+        else:
+            new_state = int(new_state)
+            current_state = State.query.filter_by(school_id=student_id).first()
+            if (new_state - current_state.state) % 5 != 1:
+                # Skipping state transitions
+                code = 1
+            else:
+                # All validations passed, update state
+                code = 0
+                current_state.state = new_state
+                db.session.commit()
 
-    code = 0
+    # Construct response
     msg = {
-        0: 'Success'
+        0: 'Success',
+        1: 'Invalid parameters'
     }.get(code, '')
 
     return jsonify({'code': code, 'msg': msg})
