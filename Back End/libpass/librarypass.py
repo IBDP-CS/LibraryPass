@@ -10,6 +10,8 @@ app = Flask(__name__)
 
 @app.route('/login', methods=['POST'])
 def login():
+    '''API for'''
+
     # Get form data, defaults to empty string
     username = request.form.get('username', '')
     password = request.form.get('password', '')
