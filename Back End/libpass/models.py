@@ -31,3 +31,7 @@ class State(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     school_id = db.Column(db.String(60), db.ForeignKey('users.school_id'), nullable=False)
     state = db.Column(db.Integer, nullable=False, default=0)
+    updated = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+
+
+db.create_all() # Create tables using the above configuration

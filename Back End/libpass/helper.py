@@ -26,7 +26,7 @@ def ykps_auth(username: str, password: str):
         name = soup.select('#userName > span')[0].get_text().strip()
         ret = 0
     except Exception as e:
-        name = str(e)
+        name = ''
         ret = 1
 
     return ret, name

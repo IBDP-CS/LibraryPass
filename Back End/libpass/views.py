@@ -105,7 +105,11 @@ def login():
 
         # If user is already in the database, validate credentials directly
         if user:
-            ret = 0 if user.authenticate(password) else 1
+            if user.authenticate(password):
+                ret = 0
+                name = user.name
+            else:
+                ret = 1
 
         # New user trying to log in
         else:
@@ -117,8 +121,9 @@ def login():
                 hashed_password = generate_password_hash(password)
                 is_student = bool(re.match(r's\d{5}', username))
                 user = User(school_id=username, name=name, password=hashed_password, is_student=is_student)
-                state = State(school_id=username)
                 db.session.add(user)
+                db.session.commit()
+                state = State(school_id=username)
                 db.session.add(state)
                 db.session.commit()
 
