@@ -98,7 +98,7 @@ def login():
 
     name = ''
     if not all((username, password)): # Data validation
-        ret = 1
+        code = 1
     else:
         # Try fetching user from database
         user = User.query.filter_by(school_id=username).first()
@@ -106,17 +106,17 @@ def login():
         # If user is already in the database, validate credentials directly
         if user:
             if user.authenticate(password):
-                ret = 0
+                code = 0
                 name = user.name
             else:
-                ret = 1
+                code = 1
 
         # New user trying to log in
         else:
             # Authenticate via PowerSchool
-            ret, name = ykps_auth(username, password)
+            code, name = ykps_auth(username, password)
 
-            if ret == 0:
+            if code == 0:
                 # User credentials validated, insert into database
                 hashed_password = generate_password_hash(password)
                 is_student = bool(re.match(r's\d{5}', username))
@@ -127,7 +127,7 @@ def login():
                 db.session.add(state)
                 db.session.commit()
 
-    if ret == 0:
+    if code == 0:
         # User credentials validated, logs in the user
         login_user(user)
 
@@ -135,9 +135,9 @@ def login():
     msg = {
         0: 'Success',
         1: 'Invalid credentials'
-    }.get(ret, '')
+    }.get(code, '')
 
-    return jsonify({'code': ret, 'msg': msg, 'data': name})
+    return jsonify({'code': code, 'msg': msg, 'data': name})
 
 
 @app.route('/update-state', methods=['POST'])
@@ -145,12 +145,11 @@ def login():
 def update_state():
     '''
     API for updating the state of a student.
-    Response JSON: (code: int, msg: str, data: str)
+    Response JSON: (code: int, msg: str)
         code: info code
             0: Success
-            1: Invalid credentials
+            1: Invalid parameters
         msg: description of return code
-        data: name of user
     '''
 
     # Get form data
