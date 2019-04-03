@@ -48,6 +48,7 @@ def return_error_html(func):
             return func(*args, **kwargs)
         except Exception as e:
             _, __, exc_tb = sys.exc_info()
+            # Returning the line number of the immediate cause, not the root cause
             return render_template('error.html', error_msg='({}) {}: {}'.format(traceback.extract_tb(exc_tb)[1].lineno, e.__class__.__name__, e))
     return wrapper
 
