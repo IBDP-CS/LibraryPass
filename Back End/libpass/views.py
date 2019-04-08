@@ -167,7 +167,7 @@ def update_state():
         else:
             new_state = int(new_state)
             current_state = State.query.filter_by(school_id=student_id).first()
-            if (new_state - current_state.state) % 5 != 1:
+            if (new_state - current_state.state) % 5 != 1 and not (current_state.state == 1 and new_state == 0):
                 # Skipping state transitions
                 code = 1
             else:
@@ -184,3 +184,51 @@ def update_state():
 
     return jsonify({'code': code, 'msg': msg})
 
+
+@app.route('/get-students', methods=['POST'])
+@return_error_json
+def get_state_students():
+    '''
+    API for getting a list of students at a specific state.
+    Response JSON: (code: int, msg: str, data: list[])
+        code: info code
+            0: Success
+            1: Invalid parameters
+        msg: description of return code
+        data:
+        [
+          {
+            id[str]: student ID of the student,
+            name[str]: name of the student
+            ts[int]: timestamp of this student's last update
+          },
+          ...
+        ]
+    '''
+
+    # Get form data
+    state = request.form.get('state', '')
+
+    # Data validation
+    if not (state.isdigit() and int(state) in range(5)):
+        code = 1
+    else:
+        state = int(state)
+
+        # Fetch results from database
+        students = State.query.filter_by(state=state).all()
+        results = []
+        for student in students:
+            school_id = student.school_id
+            student_name = User.query.filter_by(school_id=school_id).first().name
+            results.append({'id': school_id, 'name': student_name, 'ts': student.updated.timestamp()})
+
+        code = 0
+
+    # Construct response
+    msg = {
+        0: 'Success',
+        1: 'Invalid parameters'
+    }.get(code, '')
+
+    return jsonify({'code': code, 'msg': msg, 'data': results})
