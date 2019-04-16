@@ -167,14 +167,19 @@ def update_state():
         else:
             new_state = int(new_state)
             current_state = State.query.filter_by(school_id=student_id).first()
-            if (new_state - current_state.state) % 5 != 1 and not (current_state.state == 1 and new_state == 0):
-                # Skipping state transitions
-                code = 1
-            else:
-                # All validations passed, update state
-                code = 0
-                current_state.state = new_state
-                db.session.commit()
+            # if (new_state - current_state.state) % 5 != 1 and not (current_state.state == 1 and new_state == 0):
+            #     # Skipping state transitions
+            #     code = 1
+            # else:
+            #     # All validations passed, update state
+            #     code = 0
+            #     current_state.state = new_state
+            #     db.session.commit()
+
+            # Ignore state transition check for the sake of development
+            code = 0
+            current_state.state = new_state
+            db.session.commit()
 
     # Construct response
     msg = {
