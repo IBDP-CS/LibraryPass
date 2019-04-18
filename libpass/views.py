@@ -124,9 +124,10 @@ def login():
                 user = User(school_id=username, name=name, password=hashed_password, is_student=is_student)
                 db.session.add(user)
                 db.session.commit()
-                state = State(school_id=username)
-                db.session.add(state)
-                db.session.commit()
+                if is_student:
+                    state = State(school_id=username)
+                    db.session.add(state)
+                    db.session.commit()
 
     if code == 0:
         # User credentials validated, logs in the user
