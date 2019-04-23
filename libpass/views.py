@@ -218,7 +218,7 @@ def get_student_state():
             code = 1
         else:
             # Get the state of the student
-            current_state = State.query.filter_by(school_id=student_id).first()
+            current_state = State.query.filter_by(school_id=student_id).first().state
             code = 0
 
     # Construct response
