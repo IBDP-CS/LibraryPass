@@ -191,6 +191,45 @@ def update_state():
     return jsonify({'code': code, 'msg': msg})
 
 
+@app.route('/get-state', methods=['POST'])
+@return_error_json
+def get_student_state():
+    '''
+    API for getting the state of a specific student.
+    Response JSON: (code: int, msg: str, data: int)
+        code: info code
+            0: Success
+            1: Invalid parameters
+        msg: description of return code
+        data: the state code of the student
+    '''
+
+    # Get form data
+    student_id = request.form.get('id', '')
+
+    current_state = -1
+    # Data validation
+    if not student_id:
+        code = 1
+    else:
+        # Further data validations
+        student = User.query.filter_by(school_id=student_id).first()
+        if not (student and student.is_student):
+            code = 1
+        else:
+            # Get the state of the student
+            current_state = State.query.filter_by(school_id=student_id).first()
+            code = 0
+
+    # Construct response
+    msg = {
+        0: 'Success',
+        1: 'Invalid parameters'
+    }.get(code, '')
+
+    return jsonify({'code': code, 'msg': msg, 'data': current_state})
+
+
 @app.route('/get-students', methods=['POST'])
 @return_error_json
 def get_state_students():
