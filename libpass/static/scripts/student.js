@@ -4,7 +4,7 @@ console.log(state1);
 console.log(Cookies.get());
 var stuid = Cookies.get("stuid");
 var username = Cookies.get("username");
-document.getElementById("stuid").innerHTML = "Welcome, " + username + "!";
+document.getElementById("stuid").innerHTML = "Welcome, " + username.split(' ')[0] + "!";
 
 $.post("/get-state", {
         id: stuid,
