@@ -1,84 +1,57 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+{% extends "base.html" %}
+{% block title %}Dorm Teacher{% endblock %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="/static/styles/dorm.css">
+{% endblock %}
+{% block scripts %}
+  {{ super() }}
+  <script src="/static/scripts/dorm.js"></script>
+{% endblock %}
 
-    <!--fonts -->
+{% block content %}
+  <div class="cotainer">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <table class="table table-bordered table-striped mb-0" id="theTable">
+            <thead>
+            </thead>
+            <tbody id="requestTable">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">ID</th>
+                <th scope="col">Request Time</th>
+                <th scope="col">Accept or Deny</th>
+              </tr>
+            </tbody>
 
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="/static/styles/dorm.css">
-    <script src="/static/scripts/dorm.js"></script>
-
-    <title>Dorm Teacher | LibraryPass</title>
-</head>
-
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
-      <div class="container">
-          <a class="navbar-brand" href="#">LibraryPass.com</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-      </div>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav ml-auto">
-              </ul>
-      </div>
-    </nav>
-
-    <div class="cotainer">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-              <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <table class="table table-bordered table-striped mb-0" id = "theTable">
-                  <thead>
-                  </thead>
-                  <tbody id = "requestTable">
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Request Time</th>
-                    <th scope="col">Accept or Deny</th>
-                  </tr>
-                  </tbody>
-
-                </table>
-              </div>
-            </div>
+          </table>
         </div>
-
-        <div class="row justify-content-center">
-          <div class="col-md-8">
-                <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                  <table class="table table-bordered table-striped mb-0" id = "theTable2">
-                    <thead>
-                    </thead>
-                    <tbody id = "requestTable2">
-                      <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">ID</th>
-                      <th scope="col">Leave Time (Library)</th>
-                      <th scope="col">Check In</th>
-                    </tr>
-                    </tbody>
-
-                  </table>
-                </div>
-              </div>
-          </div>
+      </div>
     </div>
 
-</body>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <table class="table table-bordered table-striped mb-0" id="theTable2">
+            <thead>
+            </thead>
+            <tbody id="requestTable2">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">ID</th>
+                <th scope="col">Leave Time (Library)</th>
+                <th scope="col">Check In</th>
+              </tr>
+            </tbody>
 
-</html>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

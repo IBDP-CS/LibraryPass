@@ -1,66 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+{% extends "base.html" %}
+{% block title %}Student{% endblock %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="/static/styles/student.css">
+{% endblock %}
+{% block scripts %}
+  {{ super() }}
+  <script src="/static/scripts/student.js"></script>
+{% endblock %}
 
-    <!--fonts -->
-
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="/static/styles/student.css">
-    <script src="/static/scripts/student.js"></script>
-
-    <title>Student | LibraryPass</title>
-</head>
-
-<body>
-
-  <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
-      <div class="container">
-          <a class="navbar-brand" href="#">LibraryPass.com</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-      </div>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav ml-auto">
-              </ul>
-
-      </div>
-  </nav>
-
-<div class="container">
+{% block content %}
+  <div class="container">
     <div class="row justify-content-center">
 
-        <div class="col-md-8">
-          <div class="row">
+      <div class="col-md-8">
+        <div class="row">
           <div class="card">
             <div class="card-header">
               <h2 id="stuid"></h2>
-            <div class="card-body">
+              <div class="card-body">
                 <div class="row">
                   <div class="offset-md-0">
                     <input type="submit" class="btn btn-dark btn-lg" id="bookMe" value="Book Me">
                     </input>
-                    <p id = "state">state...</p>
-                    </div>
+                    <p id="state">state...</p>
                   </div>
+                </div>
+              </div>
             </div>
-            </div>
-            </div>
-      	 </div>
-         </div>
-
+          </div>
+        </div>
       </div>
-    </div>
-</body>
 
-</html>
+    </div>
+  </div>
+{% endblock %}
