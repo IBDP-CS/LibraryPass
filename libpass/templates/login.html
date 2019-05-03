@@ -15,9 +15,10 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="/static/styles/login.css">
+    <script src="/static/scripts/login.js"></script>
 
-    <title>LoginPage_LibraryPass</title>
+    <title>Login | LibraryPass</title>
 </head>
 
 <body>
@@ -77,47 +78,5 @@
 </main>
 
 </body>
-
-<script>
-  $(document).ready(function(){
-
-    $("#login").click(function(){
-      var username1 = $("#username").val();
-      var password1 = $("#password").val();
-
-      var st = username1.split('s');
-      var num = st[1];
-
-      if (!isNaN(num)){
-        var state = "student";
-
-      }
-      else var state = "teacher";
-
-      console.log(state);
-
-      $.post("http://libpass.georgeyu.cn/login",{
-        username: username1,
-        password: password1
-      },
-
-      function(data){
-        if (data.code){
-          alert("Your Password is Incorrect!");
-        }
-        else{
-          alert("You successfully logged in.");
-
-          Cookies.set('stuid', username1);
-
-          console.log(Cookies.get());
-          if (state == "student") window.location.href = "studentpage.html";
-          else if (state == "teacher") window.location.href = "teacherpage.html";
-          else if (state == "libraryTeacher") window.location.href = "librarypage.html";
-        }
-      });
-     });
-   });
-</script>
 
 </html>
