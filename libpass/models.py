@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
     school_id = db.Column(db.String(60), nullable=False, unique=True)
     name = db.Column(db.String(80), nullable=False)
     password = db.Column(db.String(100), nullable=False)
-    is_student = db.Column(db.Integer, nullable=False)
+    user_type = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return '<User {}>'.format(self.name)
