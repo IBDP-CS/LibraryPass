@@ -18,7 +18,6 @@ from libpass.site_config import *
 
 #################### Misc ####################
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -67,18 +66,26 @@ def browser_cache(seconds):
     return outer_wrapper
 
 
+
 #################### Web Pages ####################
 
-
 @app.route('/')
-@browser_cache(3600)
-@return_error_html
-def search_page():
-    return render_template('main.html')
+def index_page():
+    # Return login page if not logged in
+    if not current_user.is_authenticated:
+        return render_template('login.html')
+
+    # Return corresponding pages
+    if current_user.user_type == 0:
+        return render_template('student.html')
+    elif current_user.user_type == 1:
+        return render_template('dorm.html')
+    elif current_user.user_type == 2:
+        return render_template('library.html')
+
 
 
 #################### APIs ####################
-
 
 @app.route('/login', methods=['POST'])
 @return_error_json
@@ -120,11 +127,11 @@ def login():
             if code == 0:
                 # User credentials validated, insert into database
                 hashed_password = generate_password_hash(password)
-                is_student = bool(re.match(r's\d{5}', username))
-                user = User(school_id=username, name=name, password=hashed_password, is_student=is_student)
+                user_type = 0 if re.match(r's\d{5}', username) else 1
+                user = User(school_id=username, name=name, password=hashed_password, user_type=user_type)
                 db.session.add(user)
                 db.session.commit()
-                if is_student:
+                if user_type == 0:
                     state = State(school_id=username)
                     db.session.add(state)
                     db.session.commit()
@@ -163,7 +170,7 @@ def update_state():
     else:
         # Further data validations
         student = User.query.filter_by(school_id=student_id).first()
-        if not (student and student.is_student):
+        if not (student and student.user_type == 0):
             code = 1
         else:
             new_state = int(new_state)
@@ -214,7 +221,7 @@ def get_student_state():
     else:
         # Further data validations
         student = User.query.filter_by(school_id=student_id).first()
-        if not (student and student.is_student):
+        if not (student and student.user_type == 0):
             code = 1
         else:
             # Get the state of the student

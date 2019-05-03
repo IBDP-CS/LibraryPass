@@ -57,7 +57,7 @@ $(document).ready(function(){
     }
   };
 
-  $.post("http://libpass.georgeyu.cn/get-students",{
+  $.post("/get-students",{
     state: 1,
   },
   function(response){
@@ -74,7 +74,7 @@ $(document).ready(function(){
     //console.log(data.data);
   });
 
-  $.post("http://libpass.georgeyu.cn/get-students",{
+  $.post("/get-students",{
     state: 4,
   },
   function(response){
@@ -102,7 +102,7 @@ $(document).ready(function(){
     console.log(rowInd);
     console.log(cells[2].innerHTML + " Accpet");
     var stuid = cells[2].innerHTML;
-    $.post("http://libpass.georgeyu.cn/update-state",{
+    $.post("/update-state",{
       id: stuid,
       state: 2,
     },
@@ -128,7 +128,7 @@ $(document).ready(function(){
     var rowInd = row.index();
     console.log(rowInd);
 
-    $.post("http://libpass.georgeyu.cn/update-state",{
+    $.post("/update-state",{
       id: stuid,
       state: 0,
     },
@@ -153,7 +153,7 @@ $(document).ready(function(){
     var rowInd = row.index();
     console.log(rowInd);
 
-    $.post("http://libpass.georgeyu.cn/update-state",{
+    $.post("/update-state",{
       id: stuid,
       state: 0,
     },

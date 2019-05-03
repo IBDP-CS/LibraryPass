@@ -15,7 +15,7 @@ $(document).ready(function(){
 
     console.log(state);
 
-    $.post("http://libpass.georgeyu.cn/login",{
+    $.post("/login",{
       username: username1,
       password: password1
     },
@@ -30,9 +30,10 @@ $(document).ready(function(){
         Cookies.set('stuid', username1);
 
         console.log(Cookies.get());
-        if (state == "student") window.location.href = "studentpage.html";
-        else if (state == "teacher") window.location.href = "teacherpage.html";
-        else if (state == "libraryTeacher") window.location.href = "librarypage.html";
+        // if (state == "student") window.location.href = "studentpage.html";
+        // else if (state == "teacher") window.location.href = "teacherpage.html";
+        // else if (state == "libraryTeacher") window.location.href = "librarypage.html";
+        window.location = "/";
       }
     });
    });

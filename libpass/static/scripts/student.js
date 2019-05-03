@@ -7,7 +7,7 @@ $(document).ready(function(){
   var stuid = Cookies.get("stuid");
   document.getElementById("stuid").innerHTML = "Welcome<br><h3>"+stuid+"</h3>";
 
-  $.post("http://libpass.georgeyu.cn/get-state",{
+  $.post("/get-state",{
     id: stuid,
   },
   function(request){
@@ -42,7 +42,7 @@ $(document).ready(function(){
   $("#bookMe").click(function(){
     state1 = 1;
 
-    $.post("http://libpass.georgeyu.cn/update-state",{
+    $.post("/update-state",{
       id: stuid,
       state: state1,
     },
