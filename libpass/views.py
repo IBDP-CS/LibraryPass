@@ -12,7 +12,6 @@ from sqlalchemy import and_, or_
 from libpass import app, db, login_manager
 from libpass.models import *
 from libpass.helper import *
-from libpass.site_config import *
 
 
 
@@ -38,32 +37,6 @@ def return_error_json(func):
             # Returning the line number of the immediate cause, not the root cause
             return jsonify({'code': -1, 'error': '{}: {}'.format(e.__class__.__name__, e), 'line': traceback.extract_tb(exc_tb)[1].lineno})
     return wrapper
-
-
-def return_error_html(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except Exception as e:
-            _, __, exc_tb = sys.exc_info()
-            # Returning the line number of the immediate cause, not the root cause
-            return render_template('error.html', error_msg='({}) {}: {}'.format(traceback.extract_tb(exc_tb)[1].lineno, e.__class__.__name__, e))
-    return wrapper
-
-
-def browser_cache(seconds):
-    def outer_wrapper(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            resp = func(*args, **kwargs)
-            if not isinstance(resp, Response):
-                resp = make_response(resp)
-            # Not setting 'Expires' because everyone is already using HTTP/1.1 now
-            resp.headers['Cache-Control'] = 'public, max-age={}'.format(seconds)
-            return resp
-        return wrapper
-    return outer_wrapper
 
 
 
@@ -174,20 +147,24 @@ def update_state():
             code = 1
         else:
             new_state = int(new_state)
-            current_state = State.query.filter_by(school_id=student_id).first()
-            # if (new_state - current_state.state) % 5 != 1 and not (current_state.state == 1 and new_state == 0):
-            #     # Skipping state transitions
-            #     code = 1
-            # else:
-            #     # All validations passed, update state
-            #     code = 0
-            #     current_state.state = new_state
-            #     db.session.commit()
+            student_state = State.query.filter_by(school_id=student_id).first()
 
-            # Ignore state transition check for the sake of development
-            code = 0
-            current_state.state = new_state
-            db.session.commit()
+            if app.config['ENV'] == 'production':
+                # Make sure state transition is valid
+                if (new_state - student_state.state) % 5 != 1 and not (student_state.state == 1 and new_state == 0):
+                    # Skipping state transitions
+                    code = 1
+                else:
+                    # All validations passed, update state
+                    code = 0
+                    student_state.state = new_state
+                    db.session.commit()
+
+            elif app.config['ENV'] == 'development':
+                # Ignore state transition check for the sake of development
+                code = 0
+                student_state.state = new_state
+                db.session.commit()
 
     # Construct response
     msg = {
