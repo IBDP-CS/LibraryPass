@@ -12,12 +12,12 @@ def ykps_auth(username: str, password: str):
             1: invalid credentials
         name: name of the user (if ret != 0, will be the error)
     '''
-    
+
     url = 'https://powerschool.ykpaoschool.cn/guardian/home.html'
     form_data = {
         'account': username,
         'ldappassword': password,
-        'pw': 'shooter'
+        'pw': 'libpass'
     }
 
     try:

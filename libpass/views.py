@@ -1,13 +1,11 @@
 import re
 import sys
-import time
 import traceback
 from functools import wraps
 
-from flask import Response, request, send_from_directory, render_template, jsonify, redirect, url_for, make_response
-from flask_login import login_user, logout_user, login_required, current_user
+from flask import Response, request, render_template, jsonify
+from flask_login import login_user, current_user
 from werkzeug.security import generate_password_hash
-from sqlalchemy import and_, or_
 
 from libpass import app, db, login_manager
 from libpass.models import *
@@ -141,7 +139,7 @@ def update_state():
     if not (all((student_id, new_state)) and new_state.isdigit() and int(new_state) in range(5)): # Data validation
         code = 1
     else:
-        # Further data validations
+        # Further data validationsg
         student = User.query.filter_by(school_id=student_id).first()
         if not (student and student.user_type == 0):
             code = 1
