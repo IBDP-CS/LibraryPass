@@ -26,6 +26,7 @@ $(document).ready(function() {
                     alert("You successfully logged in.");
 
                     Cookies.set('stuid', username1);
+                    Cookies.set('username', data.data);
 
                     console.log(Cookies.get());
                     // if (state == "student") window.location.href = "studentpage.html";
