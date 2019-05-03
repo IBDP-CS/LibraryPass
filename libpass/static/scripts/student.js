@@ -4,7 +4,7 @@ console.log(state1);
 console.log(Cookies.get());
 var stuid = Cookies.get("stuid");
 var username = Cookies.get("username");
-document.getElementById("stuid").innerHTML = "Welcome<br><h3>" + username + "</h3>";
+document.getElementById("stuid").innerHTML = "Welcome, " + username + "!";
 
 $.post("/get-state", {
         id: stuid,
@@ -16,23 +16,23 @@ $.post("/get-state", {
             var sState = request.data;
             switch (sState) {
                 case 0:
-                    document.getElementById("state").innerHTML = "Not Signed Up";
+                    document.getElementById("state").innerHTML = "In dorm";
+                    $("#bookMe").removeAttr("disabled");
                     break;
                 case 1:
-                    document.getElementById("state").innerHTML = "Wait For Approval";
+                    document.getElementById("state").innerHTML = "Waiting for approval";
                     break;
                 case 2:
-                    document.getElementById("state").innerHTML = "Request Approved";
+                    document.getElementById("state").innerHTML = "En route to library";
                     break;
                 case 3:
-                    document.getElementById("state").innerHTML = "In Library";
+                    document.getElementById("state").innerHTML = "In library";
                     break;
                 case 4:
-                    document.getElementById("state").innerHTML = "Going back to Dorm";
+                    document.getElementById("state").innerHTML = "En route to dorm";
                     break;
-
                 default:
-                    document.getElementById("state").innerHTML = NULL;
+                    document.getElementById("state").innerHTML = "Unknown";
 
             }
         }
@@ -49,7 +49,8 @@ $("#bookMe").click(function() {
             if (data.code) {
                 alert("An Unexpected Error has occured. Please Refresh the Page and Try Again");
             } else {
-                alert("You signed up");
+                alert("You request is sent");
+                $("#bookMe").attr("disabled", "");
             }
         });
     console.log(state1);
