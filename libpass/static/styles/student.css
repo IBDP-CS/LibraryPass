@@ -1,5 +1,4 @@
-
-body{
+body {
     margin: 0;
     font-size: .9rem;
     font-weight: 400;
@@ -10,25 +9,21 @@ body{
     font-family: system-ui;
 }
 
-.card-body
-{
-  height: 6rem;
-  width: 50rem;
+.card-body {
+    height: 6rem;
+    width: 50rem;
 }
 
-.card .row{
-  padding-top: 1rem;
-  height: 1rem;
+.card .row {
+    padding-top: 1rem;
+    height: 1rem;
 }
 
-.navbar-laravel
-{
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,.3);
-
+.navbar-laravel {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
 }
 
-.row
-{
-  padding-top: 5rem;
+.row {
+    padding-top: 5rem;
 }

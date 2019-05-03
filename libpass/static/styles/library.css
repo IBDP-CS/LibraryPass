@@ -1,4 +1,4 @@
-body{
+body {
     margin: 0;
     font-size: .9rem;
     font-weight: 400;
@@ -9,31 +9,27 @@ body{
     font-family: system-ui;
 }
 
-
 .my-custom-scrollbar {
-  position: relative;
-  height: 200px;
-  overflow: auto;
+    position: relative;
+    height: 200px;
+    overflow: auto;
 }
+
 .table-wrapper-scroll-y {
-  display: block;
-  background-color: white;
+    display: block;
+    background-color: white;
 }
 
-.navbar-laravel
-{
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,.3);
-
+.navbar-laravel {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
 }
 
-.row
-{
-  padding-top: 5rem;
+.row {
+    padding-top: 5rem;
 }
 
-.btn
-{
-  height: 1.8rem;
-  font-size: .1rem;
+.btn {
+    height: 1.8rem;
+    font-size: .1rem;
 }
