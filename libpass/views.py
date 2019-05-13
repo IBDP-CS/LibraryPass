@@ -3,8 +3,8 @@ import sys
 import traceback
 from functools import wraps
 
-from flask import Response, request, render_template, jsonify
-from flask_login import login_user, current_user
+from flask import Response, request, render_template, redirect, url_for, jsonify
+from flask_login import login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash
 
 from libpass import app, db, login_manager
@@ -53,6 +53,12 @@ def index_page():
         return render_template('dorm.html')
     elif current_user.user_type == 2:
         return render_template('library.html')
+
+
+@app.route('/logout')
+def logout_page():
+    logout_user()
+    return redirect(url_for('index_page'))
 
 
 
